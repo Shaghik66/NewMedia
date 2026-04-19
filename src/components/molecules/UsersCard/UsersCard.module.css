@@ -1,0 +1,19 @@
+.usersCardsContainer {
+  background-color: rgb(255, 216, 245);
+  max-width: 400px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 5px 5px 3px rgb(209, 169, 209);
+  border: 1px solid rgb(209, 169, 209);
+
+  .profileImage {
+    display: block;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  .userName {
+    margin-top: 10px;
+    font-size: 30px;
+  }
+}
