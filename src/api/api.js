@@ -5,8 +5,8 @@ const instance = axios.create({
 });
 
 export const socialAPI = {
-  async getAllUsers() {
-    const response = await instance.get("users");
+  async getAllUsers(page) {
+    const response = await instance.get(`users?page=${page}&count=100`);
     return response;
   },
 
@@ -14,4 +14,9 @@ export const socialAPI = {
     const response = await instance.get(`/profile/${id}`);
     return response;
   },
+
+  async login (body){
+    const response = await instance.post(`/auth/login`,body);
+    return response;
+  }
 };

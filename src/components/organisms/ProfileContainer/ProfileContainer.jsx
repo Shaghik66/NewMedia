@@ -7,7 +7,7 @@ export function ProfileContainer({ profile }) {
   return (
     <div className={style.profileContainer}>
       <img
-        src={profile?.photos?.large ? profile?.photos?.large : profilePic}
+        src={profile?.profile?.photos?.large ? profile?.profile.photos?.large : profilePic}
         alt=""
       />
     </div>

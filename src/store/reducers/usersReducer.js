@@ -1,11 +1,14 @@
+import { socialAPI } from "../../api/api";
+
 const GET_ALL_USERS = "get_all_users";
 const IS_LOADING = "is_loading";
-import { socialAPI} from "../../api/api"; 
-
+const CHANGE_PAGE = "change_page";
 
 const initState = {
   users: [],
   isLoading: false,
+  page: 1,
+  totalCount: 2000,
 };
 
 export const usersReducer = (state = initState, action) => {
@@ -20,20 +23,25 @@ export const usersReducer = (state = initState, action) => {
         ...state,
         isLoading: action.payload,
       };
+    case CHANGE_PAGE:
+      return {
+        ...state,
+        page: action.payload
+      };
     default:
       return state;
   }
 };
 
-export const getUsersThunk = () => {
+export const getUsersThunk = (page) => {
   return async (dispatch) => {
     dispatch(isLoadingAC(true));
-    const response = await socialAPI.getAllUsers();
+    const response = await socialAPI.getAllUsers(page);
     dispatch(usersReducerAC(response?.data.items));
     dispatch(isLoadingAC(false));
   };
 };
 
-export const usersReducerAC = (data) => ({type: GET_ALL_USERS, payload: data});
-
-export const isLoadingAC = (data) => ({type: IS_LOADING, payload: data});
+const usersReducerAC = (data) => ({type: GET_ALL_USERS,payload: data,});
+const isLoadingAC = (data) => ({ type: IS_LOADING, payload: data });
+export const changePageAc = (newPage) => ({type: CHANGE_PAGE, payload: newPage})
