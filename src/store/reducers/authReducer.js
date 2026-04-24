@@ -2,9 +2,7 @@ import { socialAPI } from "../../api/api";
 const LOGIN = "login";
 
 const initState = {
-  resultCode: null,
-  messages: [],
-  data: null,
+  userId: null,
 };
 
 export const authReducer = (state = initState, action) => {
@@ -12,7 +10,7 @@ export const authReducer = (state = initState, action) => {
     case LOGIN:
       return {
         ...state,
-        data: action.payload,
+        userId: action.payload,
       };
     default:
       return state;
@@ -22,7 +20,7 @@ export const authReducer = (state = initState, action) => {
 export const loginThunkCreator = (body) => {
   return async (dispatch) => {
     const response = await socialAPI.login(body);
-    dispatch(loginAC(response.data.data));
+    dispatch(loginAC(response.data.data.userId));
   };
 };
 

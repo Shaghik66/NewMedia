@@ -3,13 +3,18 @@ import style from "./ProfileContainer.module.css";
 
 import React from "react";
 
-export function ProfileContainer({ profile }) {
+export function ProfileContainer({ profile, isLogin, changeProfile }) {
   return (
     <div className={style.profileContainer}>
       <img
-        src={profile?.profile?.photos?.large ? profile?.profile.photos?.large : profilePic}
+        src={
+          profile?.profile?.photos?.large
+            ? profile?.profile.photos?.large
+            : profilePic
+        }
         alt=""
       />
+      {isLogin && <input type="file" onChange={changeProfile}/> }
     </div>
   );
 }
