@@ -1,11 +1,14 @@
+import { Await } from "react-router-dom";
 import { socialAPI } from "../../api/api";
 
 const GET_PROFILE = "get_profile";
 const CHANGE_PROFILE = "change_profile";
+const SET_STATUS = "set_status";
 
 const initState = {
   profile: null,
   file: {},
+  status: {},
 };
 
 export const profileReducer = (state = initState, action) => {
@@ -23,6 +26,11 @@ export const profileReducer = (state = initState, action) => {
           photos: action.payload?.photos,
         },
       };
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.payload,
+      };
     default:
       return state;
   }
@@ -38,9 +46,21 @@ export const profileThunk = (id) => {
 export const changeProfileThunk = (formData) => {
   return async (dispatch) => {
     const response = await socialAPI.changeProfile(formData);
-    dispatch(changeProfileReducerAC(response.data));
+    dispatch(changeProfileReducerAC(response.data.data));
+  };
+};
+
+export const setStatusThunk = (status) => {
+  return async (dispatch) => {
+    const response = await socialAPI.setStatus(status);
+    dispatch(setSTatusReducerAC(response.data));
+    
   };
 };
 
 const profileReducerAC = (data) => ({ type: GET_PROFILE, payload: data });
-const changeProfileReducerAC = (file) => ({type: CHANGE_PROFILE,payload: file,});
+const changeProfileReducerAC = (file) => ({
+  type: CHANGE_PROFILE,
+  payload: file,
+});
+const setSTatusReducerAC = (status) => ({ type: SET_STATUS, payload: status });

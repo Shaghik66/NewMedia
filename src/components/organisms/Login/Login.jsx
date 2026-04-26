@@ -20,14 +20,13 @@ export const Login = () => {
 
   const user = localStorage.getItem("userId");
 
+  if (userId) {
+    return <Navigate to={`/users/${userId}`} />;
+  }
 
-    if (userId) {
-      return <Navigate to={`/users/${userId}`} />;
-    }
-
-    if (user && !userId) {
-      return <Navigate to={`/users/${user}`} />;
-    }
+  if (user && !userId) {
+    return <Navigate to={`/users/${user}`} />;
+  }
 
   return (
     <header className={style.header}>

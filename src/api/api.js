@@ -2,6 +2,10 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0",
+  withCredentials: true,
+  headers: {
+    "API-KEY": "d2c9ec92-0989-483d-a1ee-eb58b5788265",
+  },
 });
 
 export const socialAPI = {
@@ -21,12 +25,12 @@ export const socialAPI = {
   },
 
   async changeProfile(file) {
-    const response = await instance.put(`/profile/photo`, file, {
-      headers: {
-        "API-KEY": "1e6c6v1c-e42b-4f91-b672-7983ab2fe602",
-      },
-      withCredentials: true,
-    });
+    const response = await instance.put(`/profile/photo`, file);
+    return response;
+  },
+
+  async setStatus(status) {
+    const response = await instance.put(`/profile/status`, status);
     return response;
   },
 };
